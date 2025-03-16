@@ -7,13 +7,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout";
+import About from "./pages/About";
+import GreenBank from "./pages/GreenBank";
+import CarbonCalculator from "./pages/CarbonCalculator";
 
-// These pages will be implemented later
-const Products = () => <div>Products Page</div>;
-const GreenBank = () => <div>Green Bank Page</div>;
-const CarbonCalculator = () => <div>Carbon Calculator Page</div>;
-const About = () => <div>About Page</div>;
+// Contact page placeholder - will be implemented later
 const Contact = () => <div>Contact Page</div>;
+const Products = () => <div>Products Page</div>;
 
 const queryClient = new QueryClient();
 
