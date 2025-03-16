@@ -17,12 +17,16 @@ const Contact = () => <div>Contact Page</div>;
 
 const queryClient = new QueryClient();
 
-const App = () => (
+interface AppProps {
+  basename?: string;
+}
+
+const App = ({ basename = '/' }: AppProps) => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      <BrowserRouter basename={basename}>
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<Index />} />
