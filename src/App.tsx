@@ -10,10 +10,10 @@ import Layout from "./components/Layout";
 import About from "./pages/About";
 import GreenBank from "./pages/GreenBank";
 import CarbonCalculator from "./pages/CarbonCalculator";
+import Products from "./pages/Products";
 
 // Contact page placeholder - will be implemented later
 const Contact = () => <div>Contact Page</div>;
-const Products = () => <div>Products Page</div>;
 
 const queryClient = new QueryClient();
 
