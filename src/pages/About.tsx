@@ -109,22 +109,22 @@ const About = () => {
             <div className="grid md:grid-cols-3 gap-8">
               {[
                 {
-                  name: "Sarah Nakigozi",
+                  name: "Fahad Sserumpise",
                   role: "Founder & CEO",
                   image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-                  bio: "With 15+ years in environmental management, Sarah leads our vision for sustainable waste solutions across Uganda."
+                  bio: "With 15+ years in environmental management, Fahad leads our vision for sustainable waste solutions across Uganda."
                 },
                 {
-                  name: "David Mukasa",
+                  name: "Hamza Dauda",
                   role: "Operations Director",
                   image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-                  bio: "David oversees our day-to-day operations, ensuring efficient service delivery and customer satisfaction."
+                  bio: "Hamza oversees our day-to-day operations, ensuring efficient service delivery and customer satisfaction."
                 },
                 {
-                  name: "Grace Achieng",
-                  role: "Sustainability Lead",
+                  name: "Ssempijja Charles",
+                  role: "CTO",
                   image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-                  bio: "Grace develops our environmental initiatives and leads our community education programs."
+                  bio: "Charles leads the technology teams at Towa and is in charge of software development and deployment for all our products."
                 }
               ].map((member, index) => (
                 <Card key={index} className="border-0 shadow-lg overflow-hidden">
