@@ -1,19 +1,5 @@
 
-# EcoBank - Sustainable Banking Platform
-
-A modern, responsive web application for an eco-focused banking platform with carbon calculators, sustainability metrics, and green banking options.
-
-![EcoBank Platform](https://images.unsplash.com/photo-1587613864521-85404065e423?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80)
-
-## 🌿 Overview
-
-EcoBank is a comprehensive digital platform that focuses on sustainable, eco-friendly banking options. The application includes:
-
-- Carbon calculator to estimate and offset carbon footprints
-- Financial impact analysis tools
-- Green banking products and services
-- Responsive design optimized for all devices
-- Airbnb-inspired UI/UX with clean, modern aesthetics
+# Towa Uchafu website
 
 ## 🚀 Getting Started
 
