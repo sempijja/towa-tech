@@ -185,10 +185,7 @@ const GreenBank = () => {
         <div className="flex flex-wrap justify-center gap-4">
           <Button className="bg-white text-green-600 hover:bg-gray-100 px-8 py-3">
             Register Now
-          </Button>
-          <Button variant="outline" className="border-white text-white hover:bg-green-700 px-8 py-3">
-            Download Brochure
-          </Button>
+          </Button> 
         </div>
       </div>
     </div>
