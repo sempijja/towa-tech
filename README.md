@@ -1,69 +1,109 @@
-# Welcome to your Lovable project
 
-## Project info
+# EcoBank - Sustainable Banking Platform
 
-**URL**: https://lovable.dev/projects/a9cd33cc-5e03-4189-b510-1e03bd7825d7
+A modern, responsive web application for an eco-focused banking platform with carbon calculators, sustainability metrics, and green banking options.
 
-## How can I edit this code?
+![EcoBank Platform](https://images.unsplash.com/photo-1587613864521-85404065e423?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80)
 
-There are several ways of editing your application.
+## 🌿 Overview
 
-**Use Lovable**
+EcoBank is a comprehensive digital platform that focuses on sustainable, eco-friendly banking options. The application includes:
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/a9cd33cc-5e03-4189-b510-1e03bd7825d7) and start prompting.
+- Carbon calculator to estimate and offset carbon footprints
+- Financial impact analysis tools
+- Green banking products and services
+- Responsive design optimized for all devices
+- Airbnb-inspired UI/UX with clean, modern aesthetics
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🚀 Getting Started
 
-**Use your preferred IDE**
+### Prerequisites
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- Node.js (v16 or higher)
+- npm (v7 or higher)
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Installation
 
-Follow these steps:
-
+1. Clone the repository
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+git clone https://github.com/yourusername/ecobank.git
+cd ecobank
+```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+2. Install dependencies
+```sh
+npm install
+```
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+3. Start the development server
+```sh
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+This will start the development server at http://localhost:5173/
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Available Commands
 
-**Use GitHub Codespaces**
+- `npm run dev` - Start the development server
+- `npm run build` - Build the production-ready application
+- `npm run lint` - Run ESLint to check code quality
+- `npm run preview` - Preview the production build locally
+- `npm run test` - Run tests (if configured)
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 🏗️ Project Structure
 
-## What technologies are used for this project?
+```
+src/
+├── components/        # Reusable UI components
+│   ├── ui/            # Base UI components (shadcn/ui)
+│   └── [feature]/     # Feature-specific components
+├── hooks/             # Custom React hooks
+├── lib/               # Utility functions and helpers
+├── pages/             # Page components
+├── assets/            # Static assets (images, fonts)
+├── services/          # API services and data fetching
+├── styles/            # Global styles and themes
+├── types/             # TypeScript type definitions
+└── App.tsx            # Main application component
+```
 
-This project is built with .
+## 💻 Technologies Used
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- **React** - Frontend library
+- **TypeScript** - Type safety
+- **Vite** - Build tool and dev server
+- **Tailwind CSS** - Utility-first CSS framework
+- **shadcn/ui** - UI component library
+- **Lucide React** - Icon library
+- **Radix UI** - Headless UI components
 
-## How can I deploy this project?
+## 🌏 Deployment
 
-Simply open [Lovable](https://lovable.dev/projects/a9cd33cc-5e03-4189-b510-1e03bd7825d7) and click on Share -> Publish.
+The site is configured for deployment to GitHub Pages or any static hosting service:
 
-## I want to use a custom domain - is that possible?
+1. Build the project
+```sh
+npm run build
+```
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+2. Deploy the `dist` folder to your hosting service
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 Code Conventions
+
+- **Components**: Use PascalCase for component files and function names
+- **Hooks**: Prefix with `use` and use camelCase
+- **Utilities**: Use camelCase for utility functions
+- **Styling**: Use Tailwind CSS utility classes
+- **Documentation**: Document components with JSDoc comments
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.

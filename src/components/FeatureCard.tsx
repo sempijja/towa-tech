@@ -9,28 +9,46 @@ import {
   Shield,
   Leaf,
   FileText,
+  Home,
+  Globe,
+  CreditCard,
+  TrendingUp,
   LucideIcon
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+/**
+ * Props for the FeatureCard component
+ * 
+ * @property {string} title - The title of the feature
+ * @property {string} description - The description text explaining the feature
+ * @property {string} icon - Name of the Lucide icon to display
+ * @property {string} color - Color theme for the card (from predefined set)
+ */
 interface FeatureCardProps {
   title: string;
   description: string;
   icon: string;
-  color?: "blue" | "green" | "purple" | "orange" | "teal";
+  color?: "rose" | "green" | "blue" | "orange" | "teal";
 }
 
-const FeatureCard = ({ title, description, icon, color = "green" }: FeatureCardProps) => {
-  // Define color variants
+/**
+ * FeatureCard Component
+ * 
+ * A card displaying a feature with an icon, title, and description
+ * following Airbnb-inspired design principles.
+ */
+const FeatureCard = ({ title, description, icon, color = "rose" }: FeatureCardProps) => {
+  // Define color variants based on Airbnb-style palette
   const colorVariants = {
-    blue: "bg-blue-50 text-blue-600 border-blue-200",
-    green: "bg-green-50 text-green-600 border-green-200",
-    purple: "bg-purple-50 text-purple-600 border-purple-200",
-    orange: "bg-orange-50 text-orange-600 border-orange-200",
-    teal: "bg-teal-50 text-teal-600 border-teal-200"
+    rose: "bg-rose-50 text-rose-600 border-rose-100",
+    green: "bg-emerald-50 text-emerald-600 border-emerald-100",
+    blue: "bg-blue-50 text-blue-600 border-blue-100",
+    orange: "bg-orange-50 text-orange-600 border-orange-100",
+    teal: "bg-teal-50 text-teal-600 border-teal-100"
   };
 
-  // Map icon names to components
+  // Map icon names to Lucide components
   const iconMap: Record<string, LucideIcon> = {
     BookOpen,
     Recycle,
@@ -39,7 +57,11 @@ const FeatureCard = ({ title, description, icon, color = "green" }: FeatureCardP
     Users,
     Shield,
     Leaf,
-    FileText
+    FileText,
+    Home,
+    Globe,
+    CreditCard,
+    TrendingUp
   };
 
   const IconComponent = iconMap[icon as keyof typeof iconMap] || BookOpen;
@@ -47,10 +69,10 @@ const FeatureCard = ({ title, description, icon, color = "green" }: FeatureCardP
 
   return (
     <Card className={cn(
-      "border-0 shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1",
+      "border rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1",
+      `${color === "rose" ? "hover:shadow-rose-100" : ""}`,
+      `${color === "green" ? "hover:shadow-emerald-100" : ""}`,
       `${color === "blue" ? "hover:shadow-blue-100" : ""}`,
-      `${color === "green" ? "hover:shadow-green-100" : ""}`,
-      `${color === "purple" ? "hover:shadow-purple-100" : ""}`,
       `${color === "orange" ? "hover:shadow-orange-100" : ""}`,
       `${color === "teal" ? "hover:shadow-teal-100" : ""}`
     )}>
@@ -59,7 +81,7 @@ const FeatureCard = ({ title, description, icon, color = "green" }: FeatureCardP
           <IconComponent size={24} />
         </div>
         <h3 className="text-xl font-semibold mb-2">{title}</h3>
-        <p className="text-gray-600">{description}</p>
+        <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
       </CardContent>
     </Card>
   );

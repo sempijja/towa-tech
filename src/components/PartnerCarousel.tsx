@@ -1,8 +1,16 @@
 
 import { useEffect, useRef } from "react";
 
-const PartnerCarousel = () => {
-  // Tech company logos replaced with actual image URLs from Unsplash
+/**
+ * PartnerCarousel Component
+ * 
+ * A horizontally scrolling carousel that displays partner logos with automatic animation
+ * and pause-on-hover functionality.
+ * 
+ * @returns {JSX.Element} The rendered carousel component
+ */
+const PartnerCarousel = (): JSX.Element => {
+  // Real tech company logos with Unsplash URLs
   const companyLogos = [
     {
       name: "Google",
@@ -54,24 +62,30 @@ const PartnerCarousel = () => {
     }
   ];
   
+  // Refs for DOM elements and animation
   const containerRef = useRef<HTMLDivElement>(null);
   const firstGroupRef = useRef<HTMLDivElement>(null);
   const secondGroupRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Early return if refs aren't available
     if (!containerRef.current || !firstGroupRef.current || !secondGroupRef.current) {
       return;
     }
 
     const scrollContainer = containerRef.current;
-    const scrollSpeed = 1;
+    const scrollSpeed = 1; // Pixels per frame
     let isPaused = false;
     let scrollPos = 0;
     let animationFrameId: number;
 
-    // Clone the first group to create an infinite loop
+    // Clone the first group to create an infinite loop effect
     secondGroupRef.current.innerHTML = firstGroupRef.current.innerHTML;
 
+    /**
+     * Animation function that incrementally scrolls the container
+     * and loops back to the beginning when needed
+     */
     const scroll = () => {
       if (!isPaused && scrollContainer) {
         scrollPos += scrollSpeed;
@@ -86,19 +100,24 @@ const PartnerCarousel = () => {
       animationFrameId = requestAnimationFrame(scroll);
     };
     
+    // Pause animation when mouse enters the container
     const handleMouseEnter = () => {
       isPaused = true;
     };
     
+    // Resume animation when mouse leaves the container
     const handleMouseLeave = () => {
       isPaused = false;
     };
     
+    // Add event listeners for pause-on-hover functionality
     scrollContainer.addEventListener('mouseenter', handleMouseEnter);
     scrollContainer.addEventListener('mouseleave', handleMouseLeave);
     
+    // Start the animation
     animationFrameId = requestAnimationFrame(scroll);
     
+    // Cleanup function to cancel animation and remove event listeners
     return () => {
       cancelAnimationFrame(animationFrameId);
       scrollContainer.removeEventListener('mouseenter', handleMouseEnter);
@@ -107,21 +126,24 @@ const PartnerCarousel = () => {
   }, []);
 
   return (
-    <div className="overflow-hidden relative select-none">
+    <div className="overflow-hidden relative select-none py-6">
       <div 
         ref={containerRef}
         className="flex overflow-x-hidden w-full"
+        aria-label="Partner companies"
       >
         <div ref={firstGroupRef} className="flex flex-nowrap min-w-full">
           {companyLogos.map((company, index) => (
             <div 
               key={`group1-${index}`} 
-              className="flex-none mx-6 w-48 h-24 bg-white rounded-lg shadow flex items-center justify-center p-4"
+              className="flex-none mx-6 w-48 h-24 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 flex items-center justify-center p-4"
+              aria-label={`${company.name} logo`}
             >
               <img 
                 src={company.imgUrl} 
                 alt={`${company.name} logo`} 
                 className="max-w-full max-h-full object-contain" 
+                loading="lazy"
               />
             </div>
           ))}
