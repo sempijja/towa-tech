@@ -8,7 +8,12 @@ const getBasename = () => {
   // In development, use no basename
   if (import.meta.env.DEV) return '/'
   
-  // In production, try to get the repository name from the URL
+  // Check if VITE_BASE_PATH is available (set during GitHub Actions build)
+  if (import.meta.env.VITE_BASE_PATH) {
+    return `/${import.meta.env.VITE_BASE_PATH}`
+  }
+  
+  // Fallback: try to get the repository name from the URL
   const { pathname } = window.location
   const basenamePath = pathname.split('/').filter(Boolean)[0]
   return basenamePath ? `/${basenamePath}` : '/'
