@@ -2,10 +2,56 @@
 import { useEffect, useRef } from "react";
 
 const PartnerCarousel = () => {
-  const companies = [
-    "Company 1", "Company 2", "Company 3", "Company 4", 
-    "Company 5", "Company 6", "Company 7", "Company 8", 
-    "Company 9", "Company 10", "Company 11", "Company 12"
+  // Tech company logos replaced with actual image URLs from Unsplash
+  const companyLogos = [
+    {
+      name: "Google",
+      imgUrl: "https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=80&q=80"
+    },
+    {
+      name: "Apple",
+      imgUrl: "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=80&q=80"
+    },
+    {
+      name: "Microsoft",
+      imgUrl: "https://images.unsplash.com/photo-1583339793403-3d9b001b6008?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=80&q=80"
+    },
+    {
+      name: "Amazon",
+      imgUrl: "https://images.unsplash.com/photo-1620288627223-53302f4e8c74?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=80&q=80"
+    },
+    {
+      name: "IBM",
+      imgUrl: "https://images.unsplash.com/photo-1569025690938-a00729c9e1f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=80&q=80"
+    },
+    {
+      name: "Oracle",
+      imgUrl: "https://images.unsplash.com/photo-1616763355548-1b606f439f86?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=80&q=80"
+    },
+    {
+      name: "Intel",
+      imgUrl: "https://images.unsplash.com/photo-1551515250-47f5bb9b6ca8?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=80&q=80"
+    },
+    {
+      name: "Samsung",
+      imgUrl: "https://images.unsplash.com/photo-1583508805133-8fd09eee9c4a?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=80&q=80"
+    },
+    {
+      name: "Cisco",
+      imgUrl: "https://images.unsplash.com/photo-1631303584812-bd33e6490d8a?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=80&q=80"
+    },
+    {
+      name: "Adobe",
+      imgUrl: "https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=80&q=80"
+    },
+    {
+      name: "Salesforce",
+      imgUrl: "https://images.unsplash.com/photo-1607799279861-4dd421887fb3?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=80&q=80"
+    },
+    {
+      name: "Nvidia",
+      imgUrl: "https://images.unsplash.com/photo-1649180556628-9ba704115795?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=80&q=80"
+    }
   ];
   
   const containerRef = useRef<HTMLDivElement>(null);
@@ -67,12 +113,16 @@ const PartnerCarousel = () => {
         className="flex overflow-x-hidden w-full"
       >
         <div ref={firstGroupRef} className="flex flex-nowrap min-w-full">
-          {companies.map((company, index) => (
+          {companyLogos.map((company, index) => (
             <div 
               key={`group1-${index}`} 
-              className="flex-none mx-6 w-48 h-24 bg-white rounded-lg shadow flex items-center justify-center"
+              className="flex-none mx-6 w-48 h-24 bg-white rounded-lg shadow flex items-center justify-center p-4"
             >
-              <div className="text-gray-400 font-semibold">{company}</div>
+              <img 
+                src={company.imgUrl} 
+                alt={`${company.name} logo`} 
+                className="max-w-full max-h-full object-contain" 
+              />
             </div>
           ))}
         </div>
