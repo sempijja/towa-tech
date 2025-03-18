@@ -10,6 +10,9 @@ import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout";
 import About from "./pages/About";
 import GreenBank from "./pages/GreenBank";
+import GreenBankRegistration from "./pages/GreenBankRegistration";
+import GreenBankInfo from "./pages/GreenBankInfo";
+import GreenBankAdmin from "./pages/GreenBankAdmin";
 import CarbonCalculator from "./pages/CarbonCalculator";
 import Products from "./pages/Products";
 import Contact from "./pages/Contact";
@@ -46,11 +49,15 @@ const App = ({ basename = '/' }: AppProps) => {
         <Toaster />
         <Sonner />
         <BrowserRouter basename={basename}>
+          <ScrollToTop />
           <Routes>
             <Route element={<Layout />}>
               <Route path="/" element={<Index />} />
               <Route path="/products" element={<Products />} />
               <Route path="/green-bank" element={<GreenBank />} />
+              <Route path="/green-bank-registration" element={<GreenBankRegistration />} />
+              <Route path="/green-bank-info" element={<GreenBankInfo />} />
+              <Route path="/green-bank-admin" element={<GreenBankAdmin />} />
               <Route path="/calculator" element={<CarbonCalculator />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />

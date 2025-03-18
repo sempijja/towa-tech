@@ -1,5 +1,5 @@
-
 import React from "react";
+import { Link } from "react-router-dom";
 import { Leaf, TrendingUp, Award, Recycle, Sprout, HandCoins } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -18,12 +18,16 @@ const GreenBank = () => {
             where environmental responsibility meets economic opportunity.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Button className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-md">
-              Join Green Bank
-            </Button>
-            <Button variant="outline" className="border-green-600 text-green-600 hover:bg-green-50">
-              Learn More
-            </Button>
+            <Link to="/green-bank-registration">
+              <Button className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-md">
+                Join Green Bank
+              </Button>
+            </Link>
+            <Link to="/green-bank-info">
+              <Button variant="outline" className="border-green-600 text-green-600 hover:bg-green-50">
+                Learn More
+              </Button>
+            </Link>
           </div>
         </div>
         <div className="rounded-xl overflow-hidden shadow-2xl">
@@ -183,9 +187,11 @@ const GreenBank = () => {
           growing community of environmentally conscious individuals and organizations.
         </p>
         <div className="flex flex-wrap justify-center gap-4">
-          <Button className="bg-white text-green-600 hover:bg-gray-100 px-8 py-3">
-            Register Now
-          </Button> 
+          <Link to="/green-bank-registration">
+            <Button className="bg-white text-green-600 hover:bg-gray-100 px-8 py-3">
+              Register Now
+            </Button>
+          </Link> 
         </div>
       </div>
     </div>
