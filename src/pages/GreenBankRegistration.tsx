@@ -8,7 +8,9 @@ import { useToast } from "@/components/ui/use-toast";
 import { Leaf } from "lucide-react";
 
 interface RegistrationFormData {
-  name: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
   latitude: number | null;
   longitude: number | null;
   wastePerDay: number;
@@ -19,13 +21,25 @@ const GreenBankRegistration = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isLocating, setIsLocating] = useState(false);
+  const [phoneError, setPhoneError] = useState<string | null>(null);
   const [formData, setFormData] = useState<RegistrationFormData>({
-    name: "",
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
     latitude: null,
     longitude: null,
     wastePerDay: 0,
     storageCapacity: 0,
   });
+
+  // Validate Ugandan phone number
+  const validateUgandanPhone = (phone: string): boolean => {
+    // Ugandan phone numbers can be:
+    // +256 7xx xxxxxx or +256 3xx xxxxxx
+    // 07xx xxxxxx or 03xx xxxxxx
+    const ugandaPhoneRegex = /^(?:\+256|0)(?:7|3)\d{8}$/;
+    return ugandaPhoneRegex.test(phone.replace(/\s/g, ''));
+  };
 
   // Function to get user's current location
   const getCurrentLocation = () => {
@@ -68,15 +82,50 @@ const GreenBankRegistration = () => {
   // Handle form input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    
+    // For numerical fields, apply limits
+    if (name === "wastePerDay" || name === "storageCapacity") {
+      const numValue = parseFloat(value);
+      
+      // Only process if it's a valid number
+      if (!isNaN(numValue)) {
+        // Limit waste per day to 1000 kg and storage capacity to 100 tonnes
+        const maxValue = name === "wastePerDay" ? 1000 : 100;
+        const limitedValue = Math.min(numValue, maxValue);
+        
+        setFormData({
+          ...formData,
+          [name]: limitedValue,
+        });
+        return;
+      }
+    }
+    
+    // Handle phone number validation
+    if (name === "phoneNumber") {
+      if (value && !validateUgandanPhone(value)) {
+        setPhoneError("Please enter a valid Ugandan phone number (starting with +256 or 0, followed by 7 or 3, and 8 more digits)");
+      } else {
+        setPhoneError(null);
+      }
+    }
+    
+    // For other fields or invalid numbers, just set the value
     setFormData({
       ...formData,
-      [name]: name === "name" ? value : parseFloat(value),
+      [name]: name === "firstName" || name === "lastName" || name === "phoneNumber" ? value : parseFloat(value),
     });
   };
 
   // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate phone number before submission
+    if (!validateUgandanPhone(formData.phoneNumber)) {
+      setPhoneError("Please enter a valid Ugandan phone number before submitting");
+      return;
+    }
     
     // Save the registration data to localStorage as JSON
     const registrations = JSON.parse(localStorage.getItem("greenBankRegistrations") || "[]");
@@ -114,16 +163,44 @@ const GreenBankRegistration = () => {
         </p>
         
         <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="firstName">First Name</Label>
+              <Input 
+                id="firstName" 
+                name="firstName" 
+                value={formData.firstName} 
+                onChange={handleInputChange} 
+                placeholder="Enter your first name"
+                required
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="lastName">Last Name</Label>
+              <Input 
+                id="lastName" 
+                name="lastName" 
+                value={formData.lastName} 
+                onChange={handleInputChange} 
+                placeholder="Enter your last name"
+                required
+              />
+            </div>
+          </div>
+          
           <div className="space-y-2">
-            <Label htmlFor="name">Full Name</Label>
+            <Label htmlFor="phoneNumber">Phone Number</Label>
             <Input 
-              id="name" 
-              name="name" 
-              value={formData.name} 
+              id="phoneNumber" 
+              name="phoneNumber" 
+              type="tel"
+              value={formData.phoneNumber} 
               onChange={handleInputChange} 
-              placeholder="Enter your full name"
+              placeholder="e.g., +256712345678 or 0712345678"
               required
             />
+            {phoneError && <p className="text-red-500 text-sm mt-1">{phoneError}</p>}
           </div>
           
           <div className="space-y-2">
@@ -169,10 +246,11 @@ const GreenBankRegistration = () => {
               name="wastePerDay" 
               type="number"
               min="0"
+              max="1000"
               step="0.1"
               value={formData.wastePerDay} 
               onChange={handleInputChange} 
-              placeholder="Enter amount in kilograms"
+              placeholder="Enter amount in kilograms (max 1000)"
               required
             />
           </div>
@@ -184,10 +262,11 @@ const GreenBankRegistration = () => {
               name="storageCapacity" 
               type="number"
               min="0"
+              max="100"
               step="0.1"
               value={formData.storageCapacity} 
               onChange={handleInputChange} 
-              placeholder="Enter capacity in tonnes"
+              placeholder="Enter capacity in tonnes (max 100)"
               required
             />
           </div>
@@ -195,6 +274,7 @@ const GreenBankRegistration = () => {
           <Button 
             type="submit" 
             className="w-full bg-green-600 hover:bg-green-700 text-white"
+            disabled={!!phoneError}
           >
             Submit Registration
           </Button>

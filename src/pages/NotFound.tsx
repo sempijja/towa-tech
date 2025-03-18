@@ -1,5 +1,5 @@
 
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Home, Search, RefreshCw, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -9,8 +9,23 @@ const NotFound = () => {
   const location = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
+  const [shouldRedirect, setShouldRedirect] = useState(false);
 
   useEffect(() => {
+    // Check if we're on GitHub Pages and the URL might need preprocessing
+    const isGitHubPages = window.location.hostname.includes('github.io');
+    const path = window.location.pathname;
+    
+    // For GitHub Pages, we need to handle 404s differently
+    // Sometimes GitHub Pages sends to 404.html without processing the route
+    if (isGitHubPages && path.endsWith('/404.html')) {
+      // Extract the actual intended path from the URL if possible
+      const intendedPath = new URLSearchParams(window.location.search).get('path');
+      if (intendedPath) {
+        setShouldRedirect(true);
+      }
+    }
+
     console.error(
       "404 Error: User attempted to access non-existent route:",
       location.pathname
@@ -29,6 +44,11 @@ const NotFound = () => {
       window.removeEventListener("offline", handleOnlineStatus);
     };
   }, [location.pathname]);
+
+  // If we should redirect to the proper SPA route
+  if (shouldRedirect) {
+    return <Navigate to="/" replace />;
+  }
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
