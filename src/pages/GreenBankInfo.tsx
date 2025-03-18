@@ -112,25 +112,6 @@ const GreenBankInfo = () => {
               </Button>
             </Link>
           </div>
-          
-          <h2 className="text-2xl font-bold text-green-600 mt-12 mb-6">For Administration Access</h2>
-          
-          <p className="text-gray-700 mb-6 leading-relaxed">
-            Administrators of the Green Bank initiative can access the collected data for analysis and program management.
-            All submitted registration information is securely stored and processed in accordance with data protection regulations.
-          </p>
-          
-          <div className="bg-blue-50 border border-blue-200 p-6 rounded-lg mb-12">
-            <h3 className="text-xl font-semibold text-blue-700 mb-3">Admin Tools</h3>
-            <p className="text-gray-700 mb-4">
-              Repository administrators can download the collected registration data for analysis and program management.
-            </p>
-            <Link to="/green-bank-admin">
-              <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50">
-                Admin Access
-              </Button>
-            </Link>
-          </div>
         </div>
         
         <div className="border-t border-gray-200 pt-8">
