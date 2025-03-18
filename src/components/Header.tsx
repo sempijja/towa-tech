@@ -69,6 +69,15 @@ const Header = () => {
             >
               About Us
             </NavLink>
+            <NavLink 
+              to="/green-bank" 
+              className={({ isActive }) => cn(
+                "font-medium transition-colors hover:text-green-600",
+                isActive ? "text-green-600" : "text-gray-700"
+              )}
+            >
+              Register as Waste Preneur
+            </NavLink>
           </nav>
 
           {/* CTA Button */}
@@ -133,6 +142,16 @@ const Header = () => {
                 onClick={() => setIsMenuOpen(false)}
               >
                 About Us
+              </NavLink>
+              <NavLink 
+                to="/green-bank" 
+                className={({ isActive }) => cn(
+                  "py-2 font-medium transition-colors hover:text-green-600",
+                  isActive ? "text-green-600" : "text-gray-700"
+                )}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Register as Waste Preneur
               </NavLink>
               <NavLink 
                 to="/contact" 

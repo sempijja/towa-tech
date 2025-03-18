@@ -55,6 +55,11 @@ const Footer = () => {
                   Contact
                 </Link>
               </li>
+              <li>
+                <Link to="/green-bank" className="text-gray-400 hover:text-green-500 transition-colors">
+                  Register as Waste Preneur
+                </Link>
+              </li>
             </ul>
           </div>
           
