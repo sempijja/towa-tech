@@ -75,7 +75,7 @@ const Index = () => {
             title="Green Bank Project" 
             description="Providing wastepreneurs with access to loans, credit scoring, and group savings through our mobile application."
             icon="Smartphone"
-            color="purple"
+            color="teal"
           />
         </div>
         
