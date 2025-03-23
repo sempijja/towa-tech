@@ -13,7 +13,7 @@
 1. Clone the repository
 ```sh
 git clone https://github.com/sempijja/towa-tech.git
-cd ecobank
+cd towa-tech
 ```
 
 2. Install dependencies
