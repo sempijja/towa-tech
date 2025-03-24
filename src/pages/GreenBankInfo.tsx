@@ -19,7 +19,7 @@ const GreenBankInfo = () => {
         <div className="prose prose-lg max-w-none mb-12">
           <p className="text-xl text-gray-700 mb-6 leading-relaxed">
             Green Bank is an innovative initiative designed to transform waste management 
-            practices by creating economic incentives for sustainable behavior. Here's how 
+            practices by creating economic incentives for sustainable behavior and helping wastepreneurs earn from the waste they collect. Here's how 
             it works and why it matters.
           </p>
           

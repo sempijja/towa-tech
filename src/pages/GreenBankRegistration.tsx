@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -6,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { Leaf } from "lucide-react";
+import { supabase } from "@/supabaseClient";
 
 interface RegistrationFormData {
   firstName: string;
@@ -15,6 +15,10 @@ interface RegistrationFormData {
   longitude: number | null;
   wastePerDay: number;
   storageCapacity: number;
+  division: string;
+  parish: string;
+  wasteType: string;
+  otherWasteType?: string;
 }
 
 const GreenBankRegistration = () => {
@@ -30,6 +34,10 @@ const GreenBankRegistration = () => {
     longitude: null,
     wastePerDay: 0,
     storageCapacity: 0,
+    division: "",
+    parish: "",
+    wasteType: "",
+    otherWasteType: "",
   });
 
   // Validate Ugandan phone number
@@ -80,71 +88,89 @@ const GreenBankRegistration = () => {
   };
 
   // Handle form input changes
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    
-    // For numerical fields, apply limits
-    if (name === "wastePerDay" || name === "storageCapacity") {
-      const numValue = parseFloat(value);
-      
-      // Only process if it's a valid number
-      if (!isNaN(numValue)) {
-        // Limit waste per day to 1000 kg and storage capacity to 100 tonnes
-        const maxValue = name === "wastePerDay" ? 1000 : 100;
-        const limitedValue = Math.min(numValue, maxValue);
-        
-        setFormData({
-          ...formData,
-          [name]: limitedValue,
-        });
-        return;
-      }
-    }
-    
-    // Handle phone number validation
-    if (name === "phoneNumber") {
-      if (value && !validateUgandanPhone(value)) {
-        setPhoneError("Please enter a valid Ugandan phone number (starting with +256 or 0, followed by 7 or 3, and 8 more digits)");
-      } else {
-        setPhoneError(null);
-      }
-    }
-    
-    // For other fields or invalid numbers, just set the value
+
     setFormData({
       ...formData,
-      [name]: name === "firstName" || name === "lastName" || name === "phoneNumber" ? value : parseFloat(value),
+      [name]: value,
     });
   };
 
   // Handle form submission
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate phone number before submission
     if (!validateUgandanPhone(formData.phoneNumber)) {
       setPhoneError("Please enter a valid Ugandan phone number before submitting");
       return;
     }
-    
-    // Save the registration data to localStorage as JSON
-    const registrations = JSON.parse(localStorage.getItem("greenBankRegistrations") || "[]");
-    const newRegistration = {
-      ...formData,
-      id: Date.now(),
-      timestamp: new Date().toISOString(),
-    };
-    
-    registrations.push(newRegistration);
-    localStorage.setItem("greenBankRegistrations", JSON.stringify(registrations));
-    
+
+    // Validate "Other" waste type if selected
+    if (formData.wasteType === "Other" && !formData.otherWasteType) {
+      toast({
+        title: "Validation error",
+        description: "Please specify the type of waste for 'Other'.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (
+      !formData.firstName ||
+      !formData.lastName ||
+      !formData.phoneNumber ||
+      !formData.latitude ||
+      !formData.longitude ||
+      !formData.wastePerDay ||
+      !formData.storageCapacity ||
+      !formData.division ||
+      !formData.parish ||
+      !formData.wasteType
+    ) {
+      toast({
+        title: "Validation error",
+        description: "Please fill in all required fields.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Saving data to Supabase
+    const { data, error } = await supabase.from("green_bank_registrations").insert([
+      {
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        phone_number: formData.phoneNumber,
+        latitude: formData.latitude,
+        longitude: formData.longitude,
+        waste_per_day: formData.wastePerDay,
+        storage_capacity: formData.storageCapacity,
+        division: formData.division,
+        parish: formData.parish,
+        waste_type: formData.wasteType,
+        other_waste_type: formData.otherWasteType || null,
+      },
+    ]);
+
+    if (error) {
+      console.error("Error saving data:", error);
+      toast({
+        title: "Error",
+        description: "Failed to submit your data. Please try again.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     // Show success message
     toast({
       title: "Registration successful!",
-      description: "Your Green Bank registration has been submitted.",
+      description: "Your registration has been submitted.",
     });
-    
-    // Navigate back to Green Bank page
+
+    // Optionally, navigate back to the Green Bank page
     navigate("/green-bank");
   };
 
@@ -173,6 +199,7 @@ const GreenBankRegistration = () => {
                 onChange={handleInputChange} 
                 placeholder="Enter your first name"
                 required
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-600"
               />
             </div>
             
@@ -185,6 +212,7 @@ const GreenBankRegistration = () => {
                 onChange={handleInputChange} 
                 placeholder="Enter your last name"
                 required
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-600"
               />
             </div>
           </div>
@@ -199,6 +227,7 @@ const GreenBankRegistration = () => {
               onChange={handleInputChange} 
               placeholder="e.g., +256712345678 or 0712345678"
               required
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-600"
             />
             {phoneError && <p className="text-red-500 text-sm mt-1">{phoneError}</p>}
           </div>
@@ -214,7 +243,7 @@ const GreenBankRegistration = () => {
                   placeholder="Latitude"
                   required
                   readOnly
-                  className="mb-2 sm:mb-0"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-600 mb-2 sm:mb-0"
                 />
               </div>
               <div className="flex-1">
@@ -225,6 +254,7 @@ const GreenBankRegistration = () => {
                   placeholder="Longitude"
                   required
                   readOnly
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-600"
                 />
               </div>
             </div>
@@ -237,6 +267,80 @@ const GreenBankRegistration = () => {
             >
               {isLocating ? "Detecting Location..." : "Detect My Current Location"}
             </Button>
+          </div>
+
+          {/* Division Dropdown */}
+          <div className="space-y-2">
+            <Label htmlFor="division">Division</Label>
+            <select
+              id="division"
+              name="division"
+              aria-label="Division"
+              value={formData.division || ""}
+              onChange={handleInputChange}
+              required
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-600"
+            >
+              <option value="" disabled>
+                Select Division
+              </option>
+              <option value="Central Division">Central Division</option>
+              <option value="Kawempe Division">Kawempe Division</option>
+              <option value="Makindye Division">Makindye Division</option>
+              <option value="Nakawa Division">Nakawa Division</option>
+              <option value="Rubaga Division">Rubaga Division</option>
+              <option value="Outside Kampala">Outside Kampala</option>
+            </select>
+          </div>
+
+          {/* Parish Input */}
+          <div className="space-y-2">
+            <Label htmlFor="parish">Parish</Label>
+            <Input
+              id="parish"
+              name="parish"
+              value={formData.parish || ""}
+              onChange={handleInputChange}
+              placeholder="Enter your parish"
+              required
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-600"
+            />
+          </div>
+
+          {/* Type of Waste Collected */}
+          <div className="space-y-2">
+            <Label htmlFor="wasteType">Type of Waste Collected</Label>
+            <select
+              id="wasteType"
+              name="wasteType"
+              title="Type of Waste Collected"
+              value={formData.wasteType || ""}
+              onChange={handleInputChange}
+              required
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-600"
+            >
+              <option value="" disabled>
+                Select Waste Type
+              </option>
+              <option value="Plastic">Plastic</option>
+              <option value="Paper/Cardboard">Paper/Cardboard</option>
+              <option value="Metal">Metal</option>
+              <option value="Glass">Glass</option>
+              <option value="Organic Waste">Organic Waste</option>
+              <option value="Electronic Waste">Electronic Waste</option>
+              <option value="Other">Other (please specify)</option>
+            </select>
+            {formData.wasteType === "Other" && (
+              <Input
+                id="otherWasteType"
+                name="otherWasteType"
+                value={formData.otherWasteType || ""}
+                onChange={handleInputChange}
+                placeholder="Please specify the type of waste"
+                required
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-600"
+              />
+            )}
           </div>
           
           <div className="space-y-2">
@@ -252,6 +356,7 @@ const GreenBankRegistration = () => {
               onChange={handleInputChange} 
               placeholder="Enter amount in kilograms (max 1000)"
               required
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-600"
             />
           </div>
           
@@ -268,6 +373,7 @@ const GreenBankRegistration = () => {
               onChange={handleInputChange} 
               placeholder="Enter capacity in tonnes (max 100)"
               required
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-600"
             />
           </div>
           

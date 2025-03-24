@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -35,6 +34,7 @@ interface AppProps {
 }
 
 const App = ({ basename = '/' }: AppProps) => {
+  console.log("App is rendering");
   // Set scroll restoration to manual to prevent browser's default scroll restoration
   useEffect(() => {
     if ('scrollRestoration' in history) {

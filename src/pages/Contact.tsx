@@ -1,4 +1,3 @@
-
 import React from "react";
 import { 
   Phone, 
@@ -16,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -54,7 +54,7 @@ const Contact = () => {
           Get In Touch
         </h1>
         <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4">
-          Have questions about Project Green Bank? We're here to help you navigate sustainable waste management and financial inclusion.
+          Have question? We're here to help you navigate sustainable waste management and financial inclusion.
         </p>
       </div>
 
@@ -72,8 +72,12 @@ const Contact = () => {
                   </div>
                   <div className="min-w-0">
                     <h3 className="font-medium text-gray-900 text-sm md:text-base">Phone</h3>
-                    <p className="text-gray-600 text-sm md:text-base truncate">+256 790 123456</p>
-                    <p className="text-gray-600 text-sm md:text-base truncate">+256 770 987654</p>
+                    <p className="text-gray-600 text-sm md:text-base truncate">
+                      <a href="tel:+256772408082" className="hover:underline">+256 772 408082</a>
+                    </p>
+                    <p className="text-gray-600 text-sm md:text-base truncate">
+                      <a href="tel:+256760822402" className="hover:underline">+256 760 822402</a>
+                    </p>
                   </div>
                 </div>
                 
@@ -83,8 +87,22 @@ const Contact = () => {
                   </div>
                   <div className="min-w-0">
                     <h3 className="font-medium text-gray-900 text-sm md:text-base">Email</h3>
-                    <p className="text-gray-600 text-sm md:text-base truncate">info@projectgreenbank.org</p>
-                    <p className="text-gray-600 text-sm md:text-base truncate">support@projectgreenbank.org</p>
+                    <p className="text-gray-600 text-sm md:text-base truncate">
+                      <a 
+                        href="mailto:info@projectgreenbank.org?subject=Inquiry&body=Hello, I would like to know more about your services." 
+                        className="hover:underline"
+                      >
+                        info@projectgreenbank.org
+                      </a>
+                    </p>
+                    <p className="text-gray-600 text-sm md:text-base truncate">
+                      <a 
+                        href="mailto:support@projectgreenbank.org?subject=Support Request&body=Hello, I need assistance with..." 
+                        className="hover:underline"
+                      >
+                        support@projectgreenbank.org
+                      </a>
+                    </p>
                   </div>
                 </div>
                 
@@ -94,8 +112,8 @@ const Contact = () => {
                   </div>
                   <div className="min-w-0">
                     <h3 className="font-medium text-gray-900 text-sm md:text-base">Address</h3>
-                    <p className="text-gray-600 text-sm md:text-base truncate">Innovation Hub,</p>
-                    <p className="text-gray-600 text-sm md:text-base truncate">Plot 123, Kampala Road,</p>
+                    <p className="text-gray-600 text-sm md:text-base truncate">Already Hotel,</p>
+                    <p className="text-gray-600 text-sm md:text-base truncate">Plot 4, Rashid Khamis Road,</p>
                     <p className="text-gray-600 text-sm md:text-base truncate">Kampala, Uganda</p>
                   </div>
                 </div>
@@ -106,8 +124,7 @@ const Contact = () => {
                   </div>
                   <div className="min-w-0">
                     <h3 className="font-medium text-gray-900 text-sm md:text-base">Working Hours</h3>
-                    <p className="text-gray-600 text-sm md:text-base truncate">Monday - Friday: 8am - 5pm</p>
-                    <p className="text-gray-600 text-sm md:text-base truncate">Saturday: 9am - 1pm</p>
+                    <p className="text-gray-600 text-sm md:text-base truncate">Monday - Friday: 9am - 5pm</p>
                   </div>
                 </div>
               </div>
@@ -118,7 +135,7 @@ const Contact = () => {
                   <a href="#" className="bg-green-50 p-2 md:p-3 rounded-full hover:bg-green-100 transition-colors">
                     <Facebook className="h-4 w-4 md:h-5 md:w-5 text-green-600" />
                   </a>
-                  <a href="#" className="bg-green-50 p-2 md:p-3 rounded-full hover:bg-green-100 transition-colors">
+                  <a href="https://x.com/towauchafu" className="bg-green-50 p-2 md:p-3 rounded-full hover:bg-green-100 transition-colors">
                     <Twitter className="h-4 w-4 md:h-5 md:w-5 text-green-600" />
                   </a>
                   <a href="#" className="bg-green-50 p-2 md:p-3 rounded-full hover:bg-green-100 transition-colors">
@@ -207,12 +224,27 @@ const Contact = () => {
       
       {/* Map Section */}
       <div className="mb-12 md:mb-20 px-4">
-        <div className="rounded-2xl overflow-hidden shadow-lg h-64 md:h-96 bg-gray-200">
-          <img 
-            src="https://images.unsplash.com/photo-1535813547-99c456a4add4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=400&q=80" 
-            alt="Map of Kampala"
-            className="w-full h-full object-cover"
-          />
+        <div className="rounded-2xl overflow-hidden shadow-lg h-64 md:h-96">
+          <MapContainer
+            center={[0.3150461, 32.571431] as [number, number]} // Coordinates for Already Hotel
+            zoom={15}
+            style={{ width: "100%", height: "100%" }}
+          >
+            {/* Tile Layer */}
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            />
+
+            {/* Marker */}
+            <Marker position={[0.3150461, 32.571431]}>
+              <Popup>
+                <strong>Already Hotel</strong>
+                <br />
+                Plot 4, Rashid Khamis Road, Kampala, Uganda
+              </Popup>
+            </Marker>
+          </MapContainer>
         </div>
       </div>
       

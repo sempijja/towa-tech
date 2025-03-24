@@ -1,7 +1,7 @@
-
-import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import "./index.css";
 
 // Get the repository name from the URL for GitHub Pages
 const getBasename = () => {
@@ -19,6 +19,8 @@ const getBasename = () => {
   return basenamePath ? `/${basenamePath}` : '/'
 }
 
-createRoot(document.getElementById("root")!).render(
-  <App basename={getBasename()} />
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <App basename={getBasename()} />
+  </React.StrictMode>
 );

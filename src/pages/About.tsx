@@ -21,7 +21,7 @@ const About = () => {
       {/* Our Mission */}
       <div className="grid md:grid-cols-2 gap-12 items-center mb-24">
         <div>
-          <h2 className="text-3xl font-bold mb-6 text-green-600">Our Mission</h2>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-green-400">Our Mission</h1>
           <p className="text-gray-600 mb-4">
             At Towa Uchafu na Nusu, we're committed to revolutionizing waste management 
             in Uganda through sustainable practices, community engagement, and innovative technologies.
@@ -56,7 +56,7 @@ const About = () => {
       {/* Our Story */}
       <div className="mb-24">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4 text-green-600">Our Story</h2>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-green-400">Our Story</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             From humble beginnings to becoming Uganda's leading waste management solution
           </p>
@@ -179,7 +179,7 @@ const About = () => {
 
       {/* Call to Action */}
       <div className="bg-green-50 rounded-xl p-10 text-center">
-        <h2 className="text-3xl font-bold mb-4 text-green-600">Join Our Mission</h2>
+        <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-green-400">Join Our Mission</h1>
         <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-6">
           Whether you're a business looking for waste management solutions or an individual wanting to 
           make a difference, we invite you to be part of our journey toward a cleaner Uganda.

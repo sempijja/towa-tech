@@ -1,6 +1,5 @@
-
 import { useState, useEffect } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
@@ -8,6 +7,7 @@ import { Menu, X } from "lucide-react";
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   // Handle scroll effect
   useEffect(() => {
@@ -70,20 +70,20 @@ const Header = () => {
               About Us
             </NavLink>
             <NavLink 
-              to="/green-bank" 
+              to="/green-bank-registration" 
               className={({ isActive }) => cn(
                 "font-medium transition-colors hover:text-green-600",
                 isActive ? "text-green-600" : "text-gray-700"
               )}
             >
-              Register as Waste Preneur
+              Register as Wastepreneur
             </NavLink>
           </nav>
 
           {/* CTA Button */}
           <Button 
             className="hidden md:flex bg-green-600 hover:bg-green-700"
-            onClick={() => window.location.href = '/contact'}
+            onClick={() => navigate('/contact')}
           >
             Contact Us
           </Button>
@@ -144,14 +144,14 @@ const Header = () => {
                 About Us
               </NavLink>
               <NavLink 
-                to="/green-bank" 
+                to="/green-bank-registration" 
                 className={({ isActive }) => cn(
                   "py-2 font-medium transition-colors hover:text-green-600",
                   isActive ? "text-green-600" : "text-gray-700"
                 )}
                 onClick={() => setIsMenuOpen(false)}
               >
-                Register as Waste Preneur
+                Register as Wastepreneur
               </NavLink>
               <NavLink 
                 to="/contact" 
