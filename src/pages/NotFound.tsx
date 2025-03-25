@@ -104,7 +104,7 @@ const NotFound = () => {
             <Link to="/green-bank">
               <Button className="w-full bg-green-600 hover:bg-green-700 flex items-center justify-center gap-2">
                 <RefreshCw size={18} />
-                Register as Waste Preneur
+                Green Bank
               </Button>
             </Link>
           </div>
