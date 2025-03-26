@@ -33,11 +33,10 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
         
-      # Step 4: Build the project
-      - name: Build
+      # Step 4: Build
         run: npm run build
         env:
-          VITE_BASE_PATH: ${{ github.event.repository.name }} # Optional: Pass the base path dynamically
+          VITE_BASE_PATH: towa-tech
       
       # Step 5: Setup Pages
       - name: Setup Pages
