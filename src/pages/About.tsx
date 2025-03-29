@@ -2,6 +2,7 @@ import React from "react";
 import { Users, Award, Leaf, Building, CheckCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { getCloudinaryUrl } from "@/lib/cloudinary";
 
 const About = () => {
   return (
@@ -45,7 +46,13 @@ const About = () => {
         </div>
         <div className="rounded-xl overflow-hidden shadow-2xl">
           <img 
-            src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+            src={getCloudinaryUrl("Towa_logo_lxhymf", {
+              width: 1350,
+              height: 900,
+              crop: "fit",
+              format: "webp",
+              quality: "auto",
+            })} 
             alt="Team working on waste management" 
             className="w-full h-auto object-cover"
           />
@@ -110,21 +117,68 @@ const About = () => {
                 {
                   name: "Fahad Sserumpise",
                   role: "Founder & CEO",
-                  image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-                  bio: "With 15+ years in environmental management, Fahad leads our vision for sustainable waste solutions across Uganda."
+                  image: getCloudinaryUrl("hamza-headshot_cuyqll.jpg", {
+                    width: 400,
+                    height: 400,
+                    crop: "fill",
+                    format: "webp",
+                    quality: "auto",
+                    gravity: "face",
+                  }),
+                  bio: "With 15+ years in environmental management, Fahad leads our vision for sustainable waste solutions across Uganda.",
                 },
                 {
                   name: "Hamza Dauda",
                   role: "Operations Director",
-                  image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-                  bio: "Hamza oversees our day-to-day operations, ensuring efficient service delivery and customer satisfaction."
+                  image: getCloudinaryUrl("hamza-headshot_cuyqll.jpg", {
+                    width: 400,
+                    height: 400,
+                    crop: "fill",
+                    format: "webp",
+                    quality: "auto",
+                    gravity: "face",
+                  }),
+                  bio: "Hamza oversees our day-to-day operations, ensuring efficient service delivery and customer satisfaction.",
                 },
                 {
                   name: "Ssempijja Charles",
                   role: "CTO",
-                  image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-                  bio: "Charles leads the technology teams at Towa and is in charge of software development and deployment for all our products."
-                }
+                  image: getCloudinaryUrl("hamza-headshot_cuyqll.jpg", {
+                    width: 400,
+                    height: 400,
+                    crop: "fill",
+                    format: "webp",
+                    quality: "auto",
+                    gravity: "face",
+                  }),
+                  bio: "Charles leads the technology teams at Towa and is in charge of software development and deployment for all our products.",
+                },
+                {
+                  name: "New Member",
+                  role: "Chief Financial Officer",
+                  image: getCloudinaryUrl("hamza-headshot_cuyqll.jpg", {
+                    width: 400,
+                    height: 400,
+                    crop: "fill",
+                    format: "webp",
+                    quality: "auto",
+                    gravity: "face",
+                  }),
+                  bio: "Responsible for overseeing the financial operations and ensuring the economic stability of the organization.",
+                },
+                {
+                  name: "New Member",
+                  role: "Head of People",
+                  image: getCloudinaryUrl("hamza-headshot_cuyqll.jpg", {
+                    width: 400,
+                    height: 400,
+                    crop: "fill",
+                    format: "webp",
+                    quality: "auto",
+                    gravity: "face",
+                  }),
+                  bio: "Leads the human resources team, focusing on employee engagement, recruitment, and organizational culture.",
+                },
               ].map((member, index) => (
                 <Card key={index} className="border-0 shadow-lg overflow-hidden">
                   <div className="h-64 overflow-hidden">

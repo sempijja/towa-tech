@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { getCloudinaryUrl } from "@/lib/cloudinary"; // Import the Cloudinary utility function
 
 /**
  * PartnerCarousel Component
@@ -12,27 +13,63 @@ const PartnerCarousel = (): JSX.Element => {
   const companyLogos = [
     {
       name: "KCCA",
-      imgUrl: "/photos/kcca-logo.png", // Adjusted path for public folder
+      imgUrl: getCloudinaryUrl("kcca-logo_zkkgq9", {
+        width: 200,
+        height: 100,
+        crop: "fit",
+        format: "webp",
+        quality: "auto",
+      }),
     },
     {
       name: "UCC",
-      imgUrl: "/photos/ucc-logo.png", 
+      imgUrl: getCloudinaryUrl("ucc-logo_icztrg", {
+        width: 200,
+        height: 100,
+        crop: "fit",
+        format: "webp",
+        quality: "auto",
+      }),
     },
     {
-      name: "KCCA",
-      imgUrl: "/photos/kcca-logo.png",
+      name: "Tweyonje",
+      imgUrl: getCloudinaryUrl("6jrkIWND_400x400_wcw7jj", {
+        width: 200,
+        height: 100,
+        crop: "fit",
+        format: "webp",
+        quality: "auto",
+      }),
     },
     {
-      name: "UCC",
-      imgUrl: "/photos/ucc-logo.png",
+      name: "NEMA",
+      imgUrl: getCloudinaryUrl("logo.7e56400d9a6a90b3eaee_qhms9f", {
+        width: 200,
+        height: 100,
+        crop: "fit",
+        format: "webp",
+        quality: "auto",
+      }),
     },
     {
-      name: "KCCA",
-      imgUrl: "/photos/kcca-logo.png",
+      name: "Govt",
+      imgUrl: getCloudinaryUrl("cropped-GCICLogo_gamspt", {
+        width: 200,
+        height: 100,
+        crop: "fit",
+        format: "webp",
+        quality: "auto",
+      }),
     },
     {
-      name: "UCC",
-      imgUrl: "/photos/ucc-logo.png",
+      name: "Rotary",
+      imgUrl: getCloudinaryUrl("cropped-Rotary-Logo_EN21_y7v72u", {
+        width: 200,
+        height: 100,
+        crop: "fit",
+        format: "webp",
+        quality: "auto",
+      }),
     },
   ];
 
@@ -100,7 +137,7 @@ const PartnerCarousel = (): JSX.Element => {
           {companyLogos.map((company, index) => (
             <div
               key={`group1-${index}`}
-              className="flex-none mx-6 w-48 h-24  rounded-xl flex items-center justify-center p-4"
+              className="flex-none mx-6 w-48 h-24 rounded-xl flex items-center justify-center p-4"
               aria-label={`${company.name} logo`}
             >
               <img

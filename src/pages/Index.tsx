@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import PartnerCarousel from "@/components/PartnerCarousel";
 import FeatureCard from "@/components/FeatureCard";
 
+
 const Index = () => {
   const navigate = useNavigate();
 

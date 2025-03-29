@@ -1,9 +1,9 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { ArrowRight, CheckCircle, Leaf, Recycle, BookOpen, BarChart, Users, Smartphone, Shield, FileText } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { getCloudinaryUrl } from "@/lib/cloudinary";
 
 // Define a type for the product/service cards
 interface ServiceCardProps {
@@ -87,7 +87,13 @@ const Products = () => {
         "Regular follow-ups"
       ],
       icon: <BookOpen className="h-6 w-6" />,
-      imageUrl: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80",
+      imageUrl: getCloudinaryUrl("Is_Your_Safety_Management_System_Effective__w1qe49", {
+        width: 800,
+        height: 600,
+        crop: "fill",
+        format: "webp",
+        quality: "auto",
+      }),
       ctaText: "Learn More",
       ctaLink: "/contact",
       primary: true
@@ -102,7 +108,13 @@ const Products = () => {
         "Compliance certificates"
       ],
       icon: <Recycle className="h-6 w-6" />,
-      imageUrl: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&q=80",
+      imageUrl: getCloudinaryUrl("Hazardous_Waste_Disposal_Companies_In_Dubai_zc7yhw", {
+        width: 800,
+        height: 600,
+        crop: "fill",
+        format: "webp",
+        quality: "auto",
+      }),
       ctaText: "Get Started",
       ctaLink: "/contact"
     },
@@ -116,7 +128,13 @@ const Products = () => {
         "Ongoing monitoring"
       ],
       icon: <Shield className="h-6 w-6" />,
-      imageUrl: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80",
+      imageUrl: getCloudinaryUrl("ahmed-shabana-6qvB6SLjHHI-unsplash_xqkrtp", {
+        width: 800,
+        height: 600,
+        crop: "fill",
+        format: "webp",
+        quality: "auto",
+      }),
       ctaText: "Check Compliance",
       ctaLink: "/contact"
     }
@@ -134,14 +152,20 @@ const Products = () => {
         "Quick approval process"
       ],
       icon: <Smartphone className="h-6 w-6" />,
-      imageUrl: "https://images.unsplash.com/photo-1579621970588-a35d0e7ab9b6?auto=format&fit=crop&q=80",
+      imageUrl: getCloudinaryUrl("pexels-messina-12492225-1920x1476_hpcyxr", {
+        width: 800,
+        height: 600,
+        crop: "fill",
+        format: "webp",
+        quality: "auto",
+      }),
       ctaText: "Apply Now",
       ctaLink: "/green-bank",
       primary: true
     },
     {
       title: "ROSCA Savings Groups",
-      description: "Join rotating savings groups with other wastepreneurs to pool resources and access funds.",
+      description: "Join rotating savings groups with other wastepreneurs to pool resources and access funds to grow your business.",
       features: [
         "Community-based savings",
         "Regular distribution cycles",
@@ -149,7 +173,13 @@ const Products = () => {
         "Transparent management"
       ],
       icon: <Users className="h-6 w-6" />,
-      imageUrl: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80",
+      imageUrl: getCloudinaryUrl("crs-supported_savings_group_meets_in_guinea-bissau_gnb2021069084_1_z7ns11", {
+        width: 800,
+        height: 600,
+        crop: "fill",
+        format: "webp",
+        quality: "auto",
+      }),
       ctaText: "Join a Group",
       ctaLink: "/green-bank"
     },
@@ -163,7 +193,13 @@ const Products = () => {
         "Financial advice"
       ],
       icon: <BarChart className="h-6 w-6" />,
-      imageUrl: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&q=80",
+      imageUrl: getCloudinaryUrl("credit-scoring-system.jpg", {
+        width: 800,
+        height: 600,
+        crop: "fill",
+        format: "webp",
+        quality: "auto",
+      }),
       ctaText: "Check Eligibility",
       ctaLink: "/green-bank"
     }
@@ -181,7 +217,13 @@ const Products = () => {
         "Ongoing monitoring"
       ],
       icon: <Leaf className="h-6 w-6" />,
-      imageUrl: "https://images.unsplash.com/photo-1498925008800-019c6bae5cfa?auto=format&fit=crop&q=80",
+      imageUrl: getCloudinaryUrl("carbon-footprint-calculation.jpg", {
+        width: 800,
+        height: 600,
+        crop: "fill",
+        format: "webp",
+        quality: "auto",
+      }),
       ctaText: "Calculate Now",
       ctaLink: "/calculator",
       primary: true
@@ -196,7 +238,13 @@ const Products = () => {
         "Improvement recommendations"
       ],
       icon: <FileText className="h-6 w-6" />,
-      imageUrl: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&q=80",
+      imageUrl: getCloudinaryUrl("sustainability-reporting.jpg", {
+        width: 800,
+        height: 600,
+        crop: "fill",
+        format: "webp",
+        quality: "auto",
+      }),
       ctaText: "Request Report",
       ctaLink: "/contact"
     }
@@ -208,7 +256,13 @@ const Products = () => {
       <section className="mb-16 text-center">
         <div className="relative rounded-2xl overflow-hidden mb-8">
           <img 
-            src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&q=80" 
+            src={getCloudinaryUrl("Triumph_at_Sunset_on_the_Mountaintop_ihgyvq", {
+              width: 1350,
+              height: 400,
+              crop: "fill",
+              format: "webp",
+              quality: "auto", 
+            })} 
             alt="Sustainable Solutions Banner" 
             className="w-full h-[400px] object-cover"
           />

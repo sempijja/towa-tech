@@ -379,10 +379,12 @@ const CarbonCalculator = () => {
                       </CardContent>
                     </Card>
                   </div>
-
-                  <Button className="w-full bg-green-600 hover:bg-green-700">
+                    <Button 
+                    className="w-full bg-green-600 hover:bg-green-700"
+                    onClick={() => window.location.href = "/green-bank-registration"}
+                    >
                     Apply for Micro-Loan
-                  </Button>
+                    </Button>
                 </div>
               )}
             </CardContent>
@@ -439,11 +441,8 @@ const CarbonCalculator = () => {
           Join the Green Bank platform and turn your waste collection efforts into financial opportunities.
         </p>
         <div className="flex flex-wrap justify-center gap-4">
-          <Button className="bg-white text-green-600 hover:bg-gray-100 px-8 py-3">
+          <Button  onClick={() => window.location.href = "/green-bank-registration"} className="bg-white text-green-600 hover:bg-gray-100 px-8 py-3">
             Register as a Wastepreneur
-          </Button>
-          <Button variant="outline" className="border-white text-white hover:bg-green-700 px-8 py-3">
-            Learn More
           </Button>
         </div>
       </div>
