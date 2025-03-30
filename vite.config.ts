@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
 export default defineConfig(({ mode }) => ({
-    base: "/towa-tech/", // Set the base path to the name of the repo
+    base: mode === "production" ? "/towa-tech/" : "/", // Use "/" for local development
     server: {
         host: "::",
         port: 8080,
