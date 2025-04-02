@@ -138,39 +138,7 @@ const GreenBankRegistration = () => {
     }
 
     try {
-      if (!isSupabaseConfigured()) {
-        // If Supabase is not configured, display a message and save to local storage temporarily
-        console.warn("Supabase not configured, saving data to local storage instead");
-        
-        // Save to local storage
-        const savedData = JSON.parse(localStorage.getItem('greenBankRegistrations') || '[]');
-        savedData.push({
-          id: Date.now().toString(),
-          first_name: formData.firstName,
-          last_name: formData.lastName,
-          phone_number: formData.phoneNumber,
-          latitude: formData.latitude,
-          longitude: formData.longitude,
-          waste_per_day: formData.wastePerDay,
-          storage_capacity: formData.storageCapacity,
-          division: formData.division,
-          parish: formData.parish,
-          waste_type: formData.wasteType,
-          other_waste_type: formData.otherWasteType || null,
-          created_at: new Date().toISOString()
-        });
-        localStorage.setItem('greenBankRegistrations', JSON.stringify(savedData));
-        
-        toast({
-          title: "Registration successful!",
-          description: "Your registration has been saved locally.",
-        });
-        
-        navigate("/green-bank");
-        return;
-      }
-      
-      // Saving data to Supabase if configured
+      // Saving data to Supabase
       const { data, error } = await supabase.from("green_bank_registrations").insert([
         {
           first_name: formData.firstName,

@@ -1,19 +1,12 @@
 
 import { createClient } from "@supabase/supabase-js";
 
-// Check if environment variables are defined
+// Get the environment variables
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-// Fallback values for development (optional)
-const fallbackUrl = "https://your-supabase-url.supabase.co";
-const fallbackKey = "your-anon-key";
-
-// Create Supabase client with environment variables or fallbacks
-export const supabase = createClient(
-  supabaseUrl || fallbackUrl,
-  supabaseAnonKey || fallbackKey
-);
+// Create and export the Supabase client
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // Export a function to check if Supabase is properly configured
 export const isSupabaseConfigured = () => {
