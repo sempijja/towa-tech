@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { Leaf } from "lucide-react";
-import { supabase, isSupabaseConfigured } from "@/supabaseClient";
+import { supabase } from "@/supabaseClient";
 
 interface RegistrationFormData {
   firstName: string;

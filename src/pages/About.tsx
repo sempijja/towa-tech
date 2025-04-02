@@ -46,7 +46,7 @@ const About = () => {
         </div>
         <div className="rounded-xl overflow-hidden shadow-2xl">
           <img 
-            src={getCloudinaryUrl("Towa_logo_lxhymf", {
+            src={getCloudinaryUrl("pexels-fauxels-3184418_b6np03", {
               width: 1350,
               height: 900,
               crop: "fit",
