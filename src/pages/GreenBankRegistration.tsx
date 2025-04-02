@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { Leaf } from "lucide-react";
-import { supabase } from "@/supabaseClient";
+import { supabase, isSupabaseConfigured } from "@/supabaseClient";
 
 interface RegistrationFormData {
   firstName: string;
@@ -137,41 +137,77 @@ const GreenBankRegistration = () => {
       return;
     }
 
-    // Saving data to Supabase
-    const { data, error } = await supabase.from("green_bank_registrations").insert([
-      {
-        first_name: formData.firstName,
-        last_name: formData.lastName,
-        phone_number: formData.phoneNumber,
-        latitude: formData.latitude,
-        longitude: formData.longitude,
-        waste_per_day: formData.wastePerDay,
-        storage_capacity: formData.storageCapacity,
-        division: formData.division,
-        parish: formData.parish,
-        waste_type: formData.wasteType,
-        other_waste_type: formData.otherWasteType || null,
-      },
-    ]);
+    try {
+      if (!isSupabaseConfigured()) {
+        // If Supabase is not configured, display a message and save to local storage temporarily
+        console.warn("Supabase not configured, saving data to local storage instead");
+        
+        // Save to local storage
+        const savedData = JSON.parse(localStorage.getItem('greenBankRegistrations') || '[]');
+        savedData.push({
+          id: Date.now().toString(),
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          phone_number: formData.phoneNumber,
+          latitude: formData.latitude,
+          longitude: formData.longitude,
+          waste_per_day: formData.wastePerDay,
+          storage_capacity: formData.storageCapacity,
+          division: formData.division,
+          parish: formData.parish,
+          waste_type: formData.wasteType,
+          other_waste_type: formData.otherWasteType || null,
+          created_at: new Date().toISOString()
+        });
+        localStorage.setItem('greenBankRegistrations', JSON.stringify(savedData));
+        
+        toast({
+          title: "Registration successful!",
+          description: "Your registration has been saved locally.",
+        });
+        
+        navigate("/green-bank");
+        return;
+      }
+      
+      // Saving data to Supabase if configured
+      const { data, error } = await supabase.from("green_bank_registrations").insert([
+        {
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          phone_number: formData.phoneNumber,
+          latitude: formData.latitude,
+          longitude: formData.longitude,
+          waste_per_day: formData.wastePerDay,
+          storage_capacity: formData.storageCapacity,
+          division: formData.division,
+          parish: formData.parish,
+          waste_type: formData.wasteType,
+          other_waste_type: formData.otherWasteType || null,
+        },
+      ]);
 
-    if (error) {
-      console.error("Error saving data:", error);
+      if (error) {
+        console.error("Error saving data:", error);
+        throw error;
+      }
+
+      // Show success message
+      toast({
+        title: "Registration successful!",
+        description: "Your registration has been submitted.",
+      });
+
+      // Navigate back to the Green Bank page
+      navigate("/green-bank");
+    } catch (error) {
+      console.error("Error in submission:", error);
       toast({
         title: "Error",
         description: "Failed to submit your data. Please try again.",
         variant: "destructive",
       });
-      return;
     }
-
-    // Show success message
-    toast({
-      title: "Registration successful!",
-      description: "Your registration has been submitted.",
-    });
-
-    // Optionally, navigate back to the Green Bank page
-    navigate("/green-bank");
   };
 
   return (
