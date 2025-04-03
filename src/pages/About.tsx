@@ -117,10 +117,10 @@ const About = () => {
                 {
                   name: "Fahad Sserumpise",
                   role: "Founder & CEO",
-                  image: getCloudinaryUrl("hamza-headshot_cuyqll.jpg", {
+                  image: getCloudinaryUrl("color_qtnbai", {
                     width: 400,
                     height: 400,
-                    crop: "fill",
+                    crop: "fit",
                     format: "webp",
                     quality: "auto",
                     gravity: "face",
@@ -130,10 +130,10 @@ const About = () => {
                 {
                   name: "Hamza Dauda",
                   role: "Operations Director",
-                  image: getCloudinaryUrl("hamza-headshot_cuyqll.jpg", {
+                  image: getCloudinaryUrl("color_qtnbai", {
                     width: 400,
                     height: 400,
-                    crop: "fill",
+                    crop: "fit",
                     format: "webp",
                     quality: "auto",
                     gravity: "face",
@@ -143,10 +143,10 @@ const About = () => {
                 {
                   name: "Ssempijja Charles",
                   role: "CTO",
-                  image: getCloudinaryUrl("hamza-headshot_cuyqll.jpg", {
+                  image: getCloudinaryUrl("color_qtnbai", {
                     width: 400,
                     height: 400,
-                    crop: "fill",
+                    crop: "fit",
                     format: "webp",
                     quality: "auto",
                     gravity: "face",
@@ -154,12 +154,12 @@ const About = () => {
                   bio: "Charles leads the technology teams at Towa and is in charge of software development and deployment for all our products.",
                 },
                 {
-                  name: "New Member",
+                  name: "Omoto David",
                   role: "Chief Financial Officer",
-                  image: getCloudinaryUrl("hamza-headshot_cuyqll.jpg", {
+                  image: getCloudinaryUrl("color_qtnbai", {
                     width: 400,
                     height: 400,
-                    crop: "fill",
+                    crop: "fit",
                     format: "webp",
                     quality: "auto",
                     gravity: "face",
@@ -167,12 +167,12 @@ const About = () => {
                   bio: "Responsible for overseeing the financial operations and ensuring the economic stability of the organization.",
                 },
                 {
-                  name: "New Member",
+                  name: "Nabwoowe Masturah",
                   role: "Head of People",
-                  image: getCloudinaryUrl("hamza-headshot_cuyqll.jpg", {
+                  image: getCloudinaryUrl("color_qtnbai", {
                     width: 400,
                     height: 400,
-                    crop: "fill",
+                    crop: "fit",
                     format: "webp",
                     quality: "auto",
                     gravity: "face",
