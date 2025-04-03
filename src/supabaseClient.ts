@@ -1,14 +1,10 @@
-
 import { createClient } from "@supabase/supabase-js";
 
-// Get the environment variables
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabaseKey = import.meta.env.VITE_SUPABASE_KEY;
 
-// Create and export the Supabase client
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error("Supabase URL and Key must be provided.");
+}
 
-// Export a function to check if Supabase is properly configured
-export const isSupabaseConfigured = () => {
-  return !!supabaseUrl && !!supabaseAnonKey;
-};
+export const supabase = createClient(supabaseUrl, supabaseKey);
