@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { Leaf } from "lucide-react";
 import { supabase } from "@/supabaseClient";
+import Select from "react-select"; // react-select for custom dropdowns
 
 interface RegistrationFormData {
   firstName: string;
@@ -17,8 +18,9 @@ interface RegistrationFormData {
   storageCapacity: number;
   division: string;
   parish: string;
-  wasteType: string;
+  wasteType: string[];
   otherWasteType?: string;
+  additionalComments?: string;
 }
 
 const GreenBankRegistration = () => {
@@ -36,23 +38,31 @@ const GreenBankRegistration = () => {
     storageCapacity: 0,
     division: "",
     parish: "",
-    wasteType: "",
+    wasteType: [],
     otherWasteType: "",
+    additionalComments: "",
   });
+
+  const wasteOptions = [
+    { value: "Plastic", label: "Plastic" },
+    { value: "Paper/Cardboard", label: "Paper/Cardboard" },
+    { value: "Metal", label: "Metal" },
+    { value: "Glass", label: "Glass" },
+    { value: "Organic Waste", label: "Organic Waste" },
+    { value: "Electronic Waste", label: "Electronic Waste" },
+    { value: "Other", label: "Other (please specify)" },
+  ];
 
   // Validate Ugandan phone number
   const validateUgandanPhone = (phone: string): boolean => {
-    // Ugandan phone numbers can be:
-    // +256 7xx xxxxxx or +256 3xx xxxxxx
-    // 07xx xxxxxx or 03xx xxxxxx
     const ugandaPhoneRegex = /^(?:\+256|0)(?:7|3)\d{8}$/;
-    return ugandaPhoneRegex.test(phone.replace(/\s/g, ''));
+    return ugandaPhoneRegex.test(phone.replace(/\s/g, ""));
   };
 
   // Function to get user's current location
   const getCurrentLocation = () => {
     setIsLocating(true);
-    
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -87,8 +97,16 @@ const GreenBankRegistration = () => {
     }
   };
 
+  const handleWasteTypeChange = (selectedOptions: any) => {
+    const selectedValues = selectedOptions.map((option: any) => option.value);
+    setFormData({
+      ...formData,
+      wasteType: selectedValues,
+    });
+  };
+
   // Handle form input changes
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
 
     setFormData({
@@ -108,7 +126,7 @@ const GreenBankRegistration = () => {
     }
 
     // Validate "Other" waste type if selected
-    if (formData.wasteType === "Other" && !formData.otherWasteType) {
+    if (formData.wasteType.includes("Other") && !formData.otherWasteType) {
       toast({
         title: "Validation error",
         description: "Please specify the type of waste for 'Other'.",
@@ -127,7 +145,7 @@ const GreenBankRegistration = () => {
       !formData.storageCapacity ||
       !formData.division ||
       !formData.parish ||
-      !formData.wasteType
+      formData.wasteType.length === 0
     ) {
       toast({
         title: "Validation error",
@@ -152,6 +170,7 @@ const GreenBankRegistration = () => {
           parish: formData.parish,
           waste_type: formData.wasteType,
           other_waste_type: formData.otherWasteType || null,
+          additional_comments: formData.additionalComments || null,
         },
       ]);
 
@@ -187,63 +206,63 @@ const GreenBankRegistration = () => {
           </div>
           <h1 className="text-3xl font-bold text-green-600">Green Bank Registration</h1>
         </div>
-        
+
         <p className="text-gray-600 mb-8 text-center">
           Join our Green Bank initiative to earn rewards for your sustainable waste management practices.
         </p>
-        
+
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="firstName">First Name</Label>
-              <Input 
-                id="firstName" 
-                name="firstName" 
-                value={formData.firstName} 
-                onChange={handleInputChange} 
+              <Input
+                id="firstName"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleInputChange}
                 placeholder="Enter your first name"
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-600"
               />
             </div>
-            
+
             <div className="space-y-2">
               <Label htmlFor="lastName">Last Name</Label>
-              <Input 
-                id="lastName" 
-                name="lastName" 
-                value={formData.lastName} 
-                onChange={handleInputChange} 
+              <Input
+                id="lastName"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleInputChange}
                 placeholder="Enter your last name"
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-600"
               />
             </div>
           </div>
-          
+
           <div className="space-y-2">
             <Label htmlFor="phoneNumber">Phone Number</Label>
-            <Input 
-              id="phoneNumber" 
-              name="phoneNumber" 
+            <Input
+              id="phoneNumber"
+              name="phoneNumber"
               type="tel"
-              value={formData.phoneNumber} 
-              onChange={handleInputChange} 
+              value={formData.phoneNumber}
+              onChange={handleInputChange}
               placeholder="e.g., +256712345678 or 0712345678"
               required
               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-600"
             />
             {phoneError && <p className="text-red-500 text-sm mt-1">{phoneError}</p>}
           </div>
-          
+
           <div className="space-y-2">
             <Label>Location</Label>
             <div className="flex gap-4 flex-col sm:flex-row">
               <div className="flex-1">
-                <Input 
-                  name="latitude" 
-                  value={formData.latitude !== null ? formData.latitude : ""} 
-                  onChange={handleInputChange} 
+                <Input
+                  name="latitude"
+                  value={formData.latitude !== null ? formData.latitude : ""}
+                  onChange={handleInputChange}
                   placeholder="Latitude"
                   required
                   readOnly
@@ -251,10 +270,10 @@ const GreenBankRegistration = () => {
                 />
               </div>
               <div className="flex-1">
-                <Input 
+                <Input
                   name="longitude"
-                  value={formData.longitude !== null ? formData.longitude : ""} 
-                  onChange={handleInputChange} 
+                  value={formData.longitude !== null ? formData.longitude : ""}
+                  onChange={handleInputChange}
                   placeholder="Longitude"
                   required
                   readOnly
@@ -262,9 +281,9 @@ const GreenBankRegistration = () => {
                 />
               </div>
             </div>
-            <Button 
-              type="button" 
-              variant="outline" 
+            <Button
+              type="button"
+              variant="outline"
               className="mt-2 w-full border-green-600 text-green-600 hover:bg-green-50"
               onClick={getCurrentLocation}
               disabled={isLocating}
@@ -314,27 +333,15 @@ const GreenBankRegistration = () => {
           {/* Type of Waste Collected */}
           <div className="space-y-2">
             <Label htmlFor="wasteType">Type of Waste Collected</Label>
-            <select
+            <Select
               id="wasteType"
-              name="wasteType"
-              title="Type of Waste Collected"
-              value={formData.wasteType || ""}
-              onChange={handleInputChange}
-              required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-600"
-            >
-              <option value="" disabled>
-                Select Waste Type
-              </option>
-              <option value="Plastic">Plastic</option>
-              <option value="Paper/Cardboard">Paper/Cardboard</option>
-              <option value="Metal">Metal</option>
-              <option value="Glass">Glass</option>
-              <option value="Organic Waste">Organic Waste</option>
-              <option value="Electronic Waste">Electronic Waste</option>
-              <option value="Other">Other (please specify)</option>
-            </select>
-            {formData.wasteType === "Other" && (
+              isMulti
+              options={wasteOptions}
+              onChange={handleWasteTypeChange}
+              className="basic-multi-select"
+              classNamePrefix="select"
+            />
+            {formData.wasteType.includes("Other") && (
               <Input
                 id="otherWasteType"
                 name="otherWasteType"
@@ -346,43 +353,56 @@ const GreenBankRegistration = () => {
               />
             )}
           </div>
-          
+
           <div className="space-y-2">
-            <Label htmlFor="wastePerDay">Waste Collected Per Day (kg)</Label>
-            <Input 
-              id="wastePerDay" 
-              name="wastePerDay" 
+            <Label htmlFor="wastePerDay">Waste Collected daily , weekly or monthly (kg)</Label>
+            <Input
+              id="wastePerDay"
+              name="wastePerDay"
               type="number"
               min="0"
               max="1000"
               step="0.1"
-              value={formData.wastePerDay} 
-              onChange={handleInputChange} 
+              value={formData.wastePerDay}
+              onChange={handleInputChange}
               placeholder="Enter amount in kilograms (max 1000)"
               required
               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-600"
             />
           </div>
-          
+
           <div className="space-y-2">
-            <Label htmlFor="storageCapacity">Storage Capacity (tonnes)</Label>
-            <Input 
-              id="storageCapacity" 
-              name="storageCapacity" 
+            <Label htmlFor="storageCapacity">Storage Capacity (kg)</Label>
+            <Input
+              id="storageCapacity"
+              name="storageCapacity"
               type="number"
               min="0"
               max="100"
               step="0.1"
-              value={formData.storageCapacity} 
-              onChange={handleInputChange} 
+              value={formData.storageCapacity}
+              onChange={handleInputChange}
               placeholder="Enter capacity in tonnes (max 100)"
               required
               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-600"
             />
           </div>
-          
-          <Button 
-            type="submit" 
+
+          {/* Additional Comments */}
+          <div className="space-y-2">
+            <Label htmlFor="additionalComments">Additional Comments (Optional)</Label>
+            <textarea
+              id="additionalComments"
+              name="additionalComments"
+              value={formData.additionalComments || ""}
+              onChange={handleInputChange}
+              placeholder="Enter any additional comments or details"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-green-600"
+            />
+          </div>
+
+          <Button
+            type="submit"
             className="w-full bg-green-600 hover:bg-green-700 text-white"
             disabled={!!phoneError}
           >
