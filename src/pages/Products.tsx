@@ -193,7 +193,7 @@ const Products = () => {
         "Financial advice"
       ],
       icon: <BarChart className="h-6 w-6" />,
-      imageUrl: getCloudinaryUrl("credit-scoring-system.jpg", {
+      imageUrl: getCloudinaryUrl("credit-score-financial-banking-economy-concept_nr1igc", {
         width: 800,
         height: 600,
         crop: "fill",
@@ -217,7 +217,7 @@ const Products = () => {
         "Ongoing monitoring"
       ],
       icon: <Leaf className="h-6 w-6" />,
-      imageUrl: getCloudinaryUrl("carbon-footprint-calculation.jpg", {
+      imageUrl: getCloudinaryUrl("2150196626_drnx9h", {
         width: 800,
         height: 600,
         crop: "fill",
@@ -238,7 +238,7 @@ const Products = () => {
         "Improvement recommendations"
       ],
       icon: <FileText className="h-6 w-6" />,
-      imageUrl: getCloudinaryUrl("sustainability-reporting.jpg", {
+      imageUrl: getCloudinaryUrl("2147626521_vk1oeo", {
         width: 800,
         height: 600,
         crop: "fill",
